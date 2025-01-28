@@ -1,0 +1,162 @@
+"The Knight and the Dragon" by Alden
+
+Release along with an interpreter, a website and the source text.
+
+The story genre is "Generated.".
+
+The story headline is "The Knights Journey for Home".
+
+The story creation year is 2025.
+
+The release number is 1.
+
+The story description is "A mostly generated work of speculative fiction constructed as a demo to introduce conversational agents and natural language programming."
+
+The Grassy Field is a room. "You are standing in a wide grassy field. The sun shines brightly overhead."
+
+The Dragon's Cave is north of the Grassy Field. "The cave is dark and filled with the smell of sulfur. Stalactites hang from the ceiling, and the faint glow of treasure illuminates the dragon curled in the corner."
+
+The dragon is a person in the Dragon's Cave. The description of the dragon is "A massive creature with shimmering scales and eyes that gleam with ancient wisdom. It looks at you expectantly, as if waiting for something."
+
+The Cozy Inn is a room. "The inn is warm and inviting, with a crackling fireplace in one corner. A long wooden bar stretches across the room, and an open stool sits at the far end. The smell of roasted meat and fresh bread fills the air."
+
+The oak door is a door. The oak door is east of the Cozy Inn and west of the Grassy Field.
+
+The bar is a fixed in place thing in the Cozy Inn. The bar is a supporter. The description of the bar is "A sturdy wooden bar, polished smooth by years of use. There's an open stool that looks like it’s waiting for you."
+
+The stool is a supporter in the Cozy Inn. The stool is enterable. The description of the stool is "A simple wooden stool, just the right height for sitting at the bar."
+
+The bartender is a person in the Cozy Inn. The description of the bartender is "A burly man with a thick beard and a jovial demeanor. He looks ready to serve drinks or share a story."
+
+The block drinking rule is not listed in any rulebook.
+
+The block attacking rule is not listed in any rulebook.
+
+Carry out drinking:
+	now the drink count is the drink count + 1;
+	say "You slurp down [the noun]. Refreshing! It reminds you of home, and Hamms, you miss home, and Hamms. You feel sad, for you know this ale can never compare to home. You yearn for treasures so you can import all the Hamms you want to this foreign land. [line break]
+The bartender can tell you are troubled and waives the fee for the ale. He sees the lust for gold in your eyes and tells you to talk to the old villager out in the field. [line break]
+The Bartender refills your mug of ale.";
+	if the drink count of the ale is 3:
+		say "Your head becomes heavy as the ale takes its toll. You slump forward, unable to resist the call of sleep. Everything fades to black as you drift into a deep slumber. [line break]
+You indulged in the pleasures of the ale, but at what cost? You may never taste Hamms without the treasure.";
+		end the story.
+
+A thing can be drinkable.
+
+The ale is an object on the bar. The ale is drinkable. The ale has a number called drink count. The drink count of the ale is 0. The description of the ale is "A golden ale with a frothy head in a large mug fit for any knight."
+
+Sitting is an action applying to one thing.
+Understand "sit on [something]" or "sit down on [something]" or "take a seat on [something]" as sitting.
+
+Check sitting:
+	if the noun is not the stool, say "That doesn't look like a place to sit." instead.
+
+Carry out sitting:
+	say "You sit down on the stool at the bar. The bartender notices you and smiles. He slides a frothy mug of ale across the bar to you. 'Here you go,' he says with a grin. Then, leaning in slightly, he adds, 'You know, there's a dragon in the cave near the field. It's been causing trouble for the village. Maybe you could take care of it?'";
+
+After getting off the stool:
+	say "You stand up from the stool, leaving it open for someone else."
+
+The dragon can be greeted or ungreeted. The dragon is ungreeted.
+
+The dragon can be complimented or not complimented. The dragon is not complimented.
+
+The villager is a person in the Grassy Field. The description of the villager is "A kind-looking villager dressed in simple clothing. They seem eager to help."
+
+The villager can be greeted or ungreeted. The villager is ungreeted.
+
+The sword is an object in the field.
+
+slaying is an action applying to one thing.
+understand "slay [something]" as slaying.
+
+Instead of slaying:
+	if the player has the sword:
+		say "You swing the sword at the dragon, splitting its stomach in two. The dragon cries in agony as its blood spills out, covering the cave in flames and melting the treasure. The cave begins to crumble, first blocking your exit and then burying you in a pile of molten rubble. No Hamms for you.";
+		end the story.
+
+The gold is a thing in the Dragon's Cave. The description of the gold is "A shimmering pile of coins and jewels that sparkles in the dim light."
+
+The dragon has a number called unanswered count. The unanswered count of the dragon is 0.
+
+Greeting is an action applying to one thing.
+Understand "greet [thing]" or "say hello to [thing]" or "say hi to [thing]" or "wave to [thing]" or "hello [thing]" as greeting.
+
+Check greeting:
+	if the noun is not the dragon and the noun is not the villager, say "There's no point in greeting that." instead.
+
+Carry out greeting:
+	if the noun is the dragon and the dragon is ungreeted:
+		now the dragon is greeted;
+		say "The dragon shifts its massive head towards you and exhales a puff of smoke. 'Greetings, brave knight. You dare to enter my domain—what is it you seek?'";
+		now the unanswered count of the dragon is 0;
+	if the noun is the villager and the villager is ungreeted:
+		now the villager is greeted;
+		say "The villager smiles warmly. 'Hello, traveler. You look like you have questions. How can I assist you?'"
+
+Complimenting is an action applying to one thing.
+Understand "compliment [thing]" or "praise [thing]" or "flatter [thing]" as complimenting.
+
+Check complimenting:
+	if the noun is not the dragon, say "That doesn't seem like a good idea." instead.
+
+Carry out complimenting the dragon:
+	if the dragon is not complimented:
+		now the dragon is complimented;
+		say "The dragon's eyes soften, and it releases a deep rumbling laugh. 'Such words warm my ancient heart, knight,' it says. 'You have shown me respect, and for that, the treasure is yours.'";
+		end the story saying "You have won the dragon's treasure and its respect. You can bring the ale of your homeland to this foreign land.";
+	otherwise:
+		say "The dragon has already been flattered enough.";
+
+Understand "ask [someone] about [text]" as asking it about.
+
+After asking the villager about something:
+	repeat through the Table of Villager Conversations:
+		if the topic understood matches the topic entry:
+			say "[response entry][paragraph break]";
+			rule succeeds;
+	say "The villager tilts their head. 'I'm not sure I know much about that. Try asking something else.'"
+
+Table of Villager Conversations
+topic	response
+"cave"	"The villager points to the north. 'The cave lies just beyond the field, but be wary. Rumors speak of a mighty dragon within.'"
+"dragon"	"'A dragon dwells in the cave to the north,' the villager says nervously. 'It guards a hoard of treasure and does not take kindly to intruders.'"
+"treasure"	"'Yes, there's treasure,' the villager says. 'But is it worth risking your life? Only you can decide.'"
+"field"	"'This field has been my home for many years,' the villager says. 'It is peaceful, but the cave to the north casts a long shadow.'"
+
+Instead of asking the dragon about something when the dragon is ungreeted:
+	now the unanswered count of the dragon is the unanswered count of the dragon + 1;
+	if the unanswered count of the dragon is 2:
+		say "The dragon's eyes flare with sudden rage. 'You dare to disturb me without even a greeting?' it roars, unleashing a torrent of fire. Everything goes dark.";
+		end the story saying "You have been slain by the dragon.";
+	say "The dragon doesn't respond. Perhaps you should greet it first."
+
+After asking the dragon about something:
+	repeat through the Table of Dragon Conversations:
+		if the topic understood matches the topic entry:
+			say "[response entry][paragraph break]";
+			rule succeeds;
+	say "The dragon narrows its eyes and rumbles, 'I do not understand your question. Perhaps you could rephrase?'"
+
+Understand "take [something]" as taking.
+
+Before taking the gold:
+	say "You reach for the gold, but the dragon's eyes flash with rage. It lunges at you, and everything goes dark.";
+	end the story saying "You have been slain by the dragon."
+
+Table of Dragon Conversations
+topic	response
+"mountain/cave/treasure"	"'This mountain has been my home for centuries,' the dragon explains. 'Its caves hold secrets far older than your kind—and treasures beyond your wildest dreams.'"
+"yourself/dragon/identity"	"'I am known as Valdrak, keeper of the molten peaks,' the dragon says, its voice echoing. 'My kind are as old as the stars. But who are you, to ask me such things?'"
+"knight/you"	"The dragon's eyes gleam. 'A knight with questions and no sword drawn—how curious. Do you not know why you are here?'"
+"purpose/mission"	"'You tell me,' the dragon rumbles. 'What purpose drives you to face me? Is it glory? Knowledge? Or do you not know yourself?'"
+"power/magic"	"'Power is a dangerous thing,' the dragon says. 'Mine is born of the earth and flame. Tell me, do you crave such power?'"
+"humans/villagers"	"'Humans,' the dragon sighs, releasing a puff of smoke. 'You build, destroy, and rebuild, always searching for meaning. Do the villagers fear me still?'"
+"stories/legends"	"'Legends rarely tell the whole truth,' the dragon says with a hint of amusement."
+"treasure/gold"	"'Ah, the treasure,' the dragon says, its voice thick with amusement, looking over to the pile of gold at its side. 'Do you seek wealth, knight? Or is there something more precious to you?'"
+"mountain's history"	"'This mountain has seen the rise and fall of empires,' the dragon says. 'Its stones remember battles long forgotten by your kind.'"
+"fear/danger"	"The dragon leans closer. 'Are you afraid, little knight? Fear is a wise companion, but do not let it rule you.'"
+
+When play begins:
+	move the player to the Cozy Inn;
