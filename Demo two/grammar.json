@@ -1,0 +1,101 @@
+{
+    "origin": [
+      "#intro# #conflict# #twist# #resolution#"
+    ],
+    "intro": [
+      "Long ago, on a distant #noun_object#, a daring #noun_person# began an incredible journey.",
+      "Beneath the strange #noun_object#, a lonely #noun_person# studied an alien secret."
+    ],
+    "conflict": [
+      "Suddenly, a group of #noun_group# arrived, #adv_all# determined to claim the mysterious #noun_object# for themselves.",
+      "Without warning, the #noun_group# attacked, forcing the #noun_person# to #verb_cognition# a risky escape plan."
+    ],
+    "twist": [
+      "But the #noun_person# realized the key was hidden in a forbidden #noun_act# they had feared to attempt.",
+      "Yet our hero discovered that the #noun_act# they had dreaded was actually the only hope."
+    ],
+    "resolution": [
+      "With courage and #adv_all# cunning, the #noun_person# used the #noun_substance# to save everyone.",
+      "In the final moment, the #noun_person# combined the #noun_quantity# resources to overthrow the #noun_group# and restore peace."
+    ],
+    
+    "noun_person": [
+      "astronomer",
+      "curate",
+      "artilleryman",
+      "child",
+      "fugitive",
+      "missionary",
+      "wife",
+      "lord",
+      "fellow"
+    ],
+    "noun_object": [
+      "hill",
+      "pit",
+      "cylinder",
+      "planet",
+      "sun",
+      "worlds",
+      "world",
+      "earth",
+      "gulf",
+      "pit"
+    ],
+    "noun_group": [
+      "men",
+      "martians",
+      "soldiers",
+      "invaders",
+      "swarm",
+      "dead",
+      "people",
+      "crowd"
+    ],
+    "noun_act": [
+      "coming",
+      "fighting",
+      "escape",
+      "struggle",
+      "war",
+      "exodus",
+      "fighting",
+      "destruction",
+      "escape",
+      "rushing"
+    ],
+    "noun_substance": [
+      "water",
+      "air",
+      "steam",
+      "dust"
+    ],
+    "noun_quantity": [
+      "one",
+      "two",
+      "three",
+      "thousands"
+    ],
+    "verb_cognition": [
+      "believe",
+      "imagine",
+      "realize",
+      "remember",
+      "thought",
+      "dissolusionment",
+      "belief",
+      "projection"
+    ],
+    "adv_all": [
+      "swiftly",
+      "suddenly",
+      "quietly",
+      "again",
+      "closely",
+      "slowly",
+      "beyond",
+      "violently",
+      "steadily"
+    ]
+  }
+  
