@@ -154,3 +154,11 @@ function displayEndScreen() {
 function mouseIsOver(zone) {
   return mouseX > zone.x && mouseX < zone.x + zone.w && mouseY > zone.y && mouseY < zone.y + zone.h;
 }
+
+function touchStarted() {
+  mousePressed();
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}

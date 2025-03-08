@@ -1,21 +1,379 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Combined Games</title>
+  <title>Portfolio</title>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=no">
   <meta name="author" content="Alden">
   <link rel="stylesheet" href="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Orbitron:wght@400;700&family=Roboto:wght@400;700&display=swap');
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: black;
+      color: #fff;
+    }
+    .container {
+      width: 80%;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #333;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 3em;
+      color: #ffcc00;
+    }
+    .era {
+      margin-bottom: 40px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .era h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2em;
+    }
+    .era ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+    .era ul li {
+      margin: 0 10px;
+    }
+    .era ul li a {
+      text-decoration: none;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .era ul li a:hover {
+      transform: scale(1.1);
+    }
+    .past {
+      background: url('KnightDragongGame/Small Cover.jpg') no-repeat center center;
+      background-size: cover;
+      color: #fff;
+      font-family: 'MedievalSharp', cursive;
+    }
+    .past h2 {
+      color: #ffdddd;
+    }
+    .past ul li a {
+      background: rgba(255, 0, 0, 0.7);
+    }
+    .past::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+    .past * {
+      position: relative;
+      z-index: 2;
+    }
+    .present {
+      background: url('DingingHallGame/diningHall.png') no-repeat center center;
+      background-size: cover;
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+    }
+    .present h2 {
+      color: #ddffdd;
+    }
+    .present ul li a {
+      background: rgba(0, 255, 0, 0.7);
+    }
+    .present::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+    .present * {
+      position: relative;
+      z-index: 2;
+    }
+    .future {
+      background: url('alienTextGen/alien-preview.jpg') no-repeat center center;
+      background-size: cover;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+    .future h2 {
+      color: #ddddff;
+    }
+    .future ul li a {
+      background: rgba(0, 0, 255, 0.7);
+    }
+    /* Updated the pseudo-element to have a solid black background */
+    .future::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      z-index: 1;
+    }
+    .future * {
+      position: relative;
+      z-index: 2;
+    }
+    /* Updated alien styles using nth-of-type for better targeting */
+    .future svg.alien {
+      position: absolute;
+      left: 100%;
+      animation: moveAlien linear infinite;
+    }
+    /* Original (current) aliens */
+    .future svg.alien:nth-of-type(1) { top: 0%; animation-duration: 10s; }
+    .future svg.alien:nth-of-type(2) { top: 20%; animation-duration: 12s; }
+    .future svg.alien:nth-of-type(3) { top: 40%; animation-duration: 14s; }
+    .future svg.alien:nth-of-type(4) { top: 60%; animation-duration: 16s; }
+    .future svg.alien:nth-of-type(5) { top: 80%; animation-duration: 18s; }
+    .future svg.alien:nth-of-type(6) { top: 100%; animation-duration: 20s; }
+    /* Added new aliens */
+    .future svg.alien:nth-of-type(7)  { top: 10%;  animation-duration: 11s; }
+    .future svg.alien:nth-of-type(8)  { top: 30%;  animation-duration: 13s; }
+    .future svg.alien:nth-of-type(9)  { top: 50%;  animation-duration: 15s; }
+    .future svg.alien:nth-of-type(10) { top: 70%;  animation-duration: 17s; }
+    .future svg.alien:nth-of-type(11) { top: 90%;  animation-duration: 19s; }
+    .future svg.alien:nth-of-type(12) { top: 110%; animation-duration: 21s; }
+    .way-future {
+  background: #0a0a0a; /* Dark base */
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+.way-future h2 {
+  color: #ffddff;
+}
+.way-future ul li a {
+  background: rgba(255, 0, 255, 0.7);
+}
+.way-future::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* More dynamic, multi-color neon gradient overlay */
+  background: linear-gradient(135deg, #ff0080, #00ffcc, #ffff00, #00ff00, #ff0080);
+  background-size: 300% 300%;
+  animation: neonPulse 2s ease-in-out infinite;
+  z-index: 1;
+}
+.way-future * {
+  position: relative;
+  z-index: 2;
+}
+.way-future .finger-paint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
+  /* Over the top pulsing neon radial glow */
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  animation: pulseGlow 1.5s ease-in-out infinite;
+  z-index: 2;
+}
+@keyframes neonPulse {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes pulseGlow {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+    @keyframes moveAlien {
+      0% {
+        left: 100%;
+      }
+      100% {
+        left: -10%;
+      }
+    }
+    @keyframes wayFutureAnim {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
 <div class="container">
   <h1>Combined Games</h1>
-  <ul>
-    <li><a href="alienTextGen/index.html">Alien Text Generator</a></li>
-    <li><a href="CombinedStory/index.html">Combined Story</a></li>
-    <li><a href="DingingHallGame/index.html">Dining Hall Game</a></li>
-    <li><a href="KnightDragongGame/index.html">The Knight and the Dragon</a></li>
-  </ul>
+  <div class="era past">
+    <h2>Past</h2>
+    <ul>
+      <li><a href="KnightDragongGame/index.html">The Knight and the Dragon</a></li>
+    </ul>
+  </div>
+  <div class="era present">
+    <h2>Present</h2>
+    <ul>
+      <li><a href="DingingHallGame/index.html">Dining Hall Game</a></li>
+    </ul>
+  </div>
+  <div class="era future">
+    <h2>Future</h2>
+    <ul>
+      <li><a href="alienTextGen/index.html">Alien Text Generator</a></li>
+    </ul>
+    <!-- Existing aliens (6) -->
+    <svg id="alien-template" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50" class="alien">
+      <circle cx="50" cy="50" r="30" fill="#00ff00" />
+      <circle cx="40" cy="40" r="5" fill="#000" />
+      <circle cx="60" cy="40" r="5" fill="#000" />
+      <circle cx="50" cy="30" r="4" fill="#000" />
+      <path d="M35,60 Q50,70 65,60" stroke="#000" stroke-width="2" fill="none" />
+      <line x1="50" y1="80" x2="30" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="70" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="50" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="40" y1="80" x2="20" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="60" y1="80" x2="80" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="10" y2="90" stroke="#00ff00" stroke-width="3" />
+      <line x1="50" y1="80" x2="90" y2="90" stroke="#00ff00" stroke-width="3" />
+      <line x1="45" y1="65" x2="47" y2="75" stroke="#000" stroke-width="2" />
+      <line x1="55" y1="65" x2="53" y2="75" stroke="#000" stroke-width="2" />
+    </svg>
+    <svg id="alien-template" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50" class="alien">
+      <circle cx="50" cy="50" r="30" fill="#00ff00" />
+      <circle cx="40" cy="40" r="5" fill="#000" />
+      <circle cx="60" cy="40" r="5" fill="#000" />
+      <circle cx="50" cy="30" r="4" fill="#000" />
+      <path d="M35,60 Q50,70 65,60" stroke="#000" stroke-width="2" fill="none" />
+      <line x1="50" y1="80" x2="30" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="70" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="50" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="40" y1="80" x2="20" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="60" y1="80" x2="80" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="10" y2="90" stroke="#00ff00" stroke-width="3" />
+      <line x1="50" y1="80" x2="90" y2="90" stroke="#00ff00" stroke-width="3" />
+      <line x1="45" y1="65" x2="47" y2="75" stroke="#000" stroke-width="2" />
+      <line x1="55" y1="65" x2="53" y2="75" stroke="#000" stroke-width="2" />
+    </svg>
+    <svg id="alien-template" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50" class="alien">
+      <circle cx="50" cy="50" r="30" fill="#00ff00" />
+      <circle cx="40" cy="40" r="5" fill="#000" />
+      <circle cx="60" cy="40" r="5" fill="#000" />
+      <circle cx="50" cy="30" r="4" fill="#000" />
+      <path d="M35,60 Q50,70 65,60" stroke="#000" stroke-width="2" fill="none" />
+      <line x1="50" y1="80" x2="30" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="70" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="50" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="40" y1="80" x2="20" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="60" y1="80" x2="80" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="10" y2="90" stroke="#00ff00" stroke-width="3" />
+      <line x1="50" y1="80" x2="90" y2="90" stroke="#00ff00" stroke-width="3" />
+      <line x1="45" y1="65" x2="47" y2="75" stroke="#000" stroke-width="2" />
+      <line x1="55" y1="65" x2="53" y2="75" stroke="#000" stroke-width="2" />
+    </svg>
+    <svg id="alien-template" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50" class="alien">
+      <circle cx="50" cy="50" r="30" fill="#00ff00" />
+      <circle cx="40" cy="40" r="5" fill="#000" />
+      <circle cx="60" cy="40" r="5" fill="#000" />
+      <circle cx="50" cy="30" r="4" fill="#000" />
+      <path d="M35,60 Q50,70 65,60" stroke="#000" stroke-width="2" fill="none" />
+      <line x1="50" y1="80" x2="30" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="70" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="50" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="40" y1="80" x2="20" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="60" y1="80" x2="80" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="10" y2="90" stroke="#00ff00" stroke-width="3" />
+      <line x1="50" y1="80" x2="90" y2="90" stroke="#00ff00" stroke-width="3" />
+      <line x1="45" y1="65" x2="47" y2="75" stroke="#000" stroke-width="2" />
+      <line x1="55" y1="65" x2="53" y2="75" stroke="#000" stroke-width="2" />
+    </svg>
+    <!-- Six new aliens added below -->
+    <svg id="alien-template" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50" class="alien">
+      <circle cx="50" cy="50" r="30" fill="#00ff00" />
+      <circle cx="40" cy="40" r="5" fill="#000" />
+      <circle cx="60" cy="40" r="5" fill="#000" />
+      <circle cx="50" cy="30" r="4" fill="#000" />
+      <path d="M35,60 Q50,70 65,60" stroke="#000" stroke-width="2" fill="none" />
+      <line x1="50" y1="80" x2="30" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="70" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="50" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="40" y1="80" x2="20" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="60" y1="80" x2="80" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="10" y2="90" stroke="#00ff00" stroke-width="3" />
+      <line x1="50" y1="80" x2="90" y2="90" stroke="#00ff00" stroke-width="3" />
+      <line x1="45" y1="65" x2="47" y2="75" stroke="#000" stroke-width="2" />
+      <line x1="55" y1="65" x2="53" y2="75" stroke="#000" stroke-width="2" />
+    </svg>
+    <svg id="alien-template" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50" class="alien">
+      <circle cx="50" cy="50" r="30" fill="#00ff00" />
+      <circle cx="40" cy="40" r="5" fill="#000" />
+      <circle cx="60" cy="40" r="5" fill="#000" />
+      <circle cx="50" cy="30" r="4" fill="#000" />
+      <path d="M35,60 Q50,70 65,60" stroke="#000" stroke-width="2" fill="none" />
+      <line x1="50" y1="80" x2="30" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="70" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="50" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="40" y1="80" x2="20" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="60" y1="80" x2="80" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="10" y2="90" stroke="#00ff00" stroke-width="3" />
+      <line x1="50" y1="80" x2="90" y2="90" stroke="#00ff00" stroke-width="3" />
+      <line x1="45" y1="65" x2="47" y2="75" stroke="#000" stroke-width="2" />
+      <line x1="55" y1="65" x2="53" y2="75" stroke="#000" stroke-width="2" />
+    </svg>
+    <svg id="alien-template" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50" class="alien">
+      <circle cx="50" cy="50" r="30" fill="#00ff00" />
+      <circle cx="40" cy="40" r="5" fill="#000" />
+      <circle cx="60" cy="40" r="5" fill="#000" />
+      <circle cx="50" cy="30" r="4" fill="#000" />
+      <path d="M35,60 Q50,70 65,60" stroke="#000" stroke-width="2" fill="none" />
+      <line x1="50" y1="80" x2="30" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="70" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="50" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="40" y1="80" x2="20" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="60" y1="80" x2="80" y2="100" stroke="#00ff00" stroke-width="5" />
+      <line x1="50" y1="80" x2="10" y2="90" stroke="#00ff00" stroke-width="3" />
+      <line x1="50" y1="80" x2="90" y2="90" stroke="#00ff00" stroke-width="3" />
+      <line x1="45" y1="65" x2="47" y2="75" stroke="#000" stroke-width="2" />
+      <line x1="55" y1="65" x2="53" y2="75" stroke="#000" stroke-width="2" />
+    </svg>
+  </div>
+  <div class="era way-future">
+    <h2>Way Way Future</h2>
+    <ul>
+      <li><a href="FingerPainter/index.html">Finger Painter</a></li>
+    </ul>
+    <div class="finger-paint"></div>
+  </div>
 </div>
 </body>
 </html>
