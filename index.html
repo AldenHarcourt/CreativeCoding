@@ -206,6 +206,7 @@
   background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
   animation: pulseGlow 1.5s ease-in-out infinite;
   z-index: 2;
+  pointer-events: none; /* This line allows clicks to pass through to the link */
 }
 @keyframes neonPulse {
   0% { background-position: 0% 50%; }
