@@ -1,362 +1,211 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Portfolio</title>
-  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no">
-  <meta name="author" content="Alden">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Combined Games and Demos with Dynamic Timeline</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* Import fonts */
     @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Orbitron:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
     body {
-      font-family: 'Roboto', sans-serif;
       margin: 0;
       padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background: black;
+      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: black;
-      color: #fff;
-    }
-    .container {
-      width: 80%;
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 20px;
-      background: #333;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     h1 {
-      text-align: center;
-      margin-bottom: 40px;
       font-size: 3em;
       color: #ffcc00;
+      margin: 20px 0;
     }
-    .era {
-      margin-bottom: 40px;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      position: relative;
-      overflow: hidden;
+    /* Instruction text styling */
+    .instruction {
+      font-size: 1.2em;
+      color: #ccc;
+      margin-bottom: 10px;
     }
-    .era h2 {
-      text-align: center;
+    .iframe-container {
+      width: 90%;
+      max-width: 1200px;
+      height: 600px;
+      border: none;
       margin-bottom: 20px;
-      font-size: 2em;
     }
-    .era ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-    }
-    .era ul li {
-      margin: 0 10px;
-    }
-    .era ul li a {
-      text-decoration: none;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 5px;
-      transition: background 0.3s, transform 0.3s;
-    }
-    .era ul li a:hover {
-      transform: scale(1.1);
-    }
-    .past {
-      background: url('KnightDragongGame/Small Cover.jpg') no-repeat center center;
-      background-size: cover;
-      color: #fff;
-      font-family: 'MedievalSharp', cursive;
-    }
-    .past h2 {
-      color: #ffdddd;
-    }
-    .past ul li a {
-      background: rgba(255, 0, 0, 0.7);
-    }
-    .past::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 1;
-    }
-    .past * {
-      position: relative;
-      z-index: 2;
-    }
-    .present {
-      background: url('DingingHallGame/diningHall.png') no-repeat center center;
-      background-size: cover;
-      color: #fff;
-      font-family: 'Roboto', sans-serif;
-    }
-    .present h2 {
-      color: #ddffdd;
-    }
-    .present ul li a {
-      background: rgba(0, 255, 0, 0.7);
-    }
-    .present::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: 1;
-    }
-    .present * {
-      position: relative;
-      z-index: 2;
-    }
-    .future {
-      background: url('alienTextGen/alien-preview.jpg') no-repeat center center;
-      background-size: cover;
-      color: #fff;
-      font-family: 'Orbitron', sans-serif;
-      position: relative;
+    /* Timeline container (viewport) */
+    .timeline-container {
+      width: 90%;
+      max-width: 1200px;
+      height: 80px;
       overflow: hidden;
+      /* No fixed background here—set dynamically in JS */
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      cursor: grab;
     }
-    .future h2 {
-      color: #ddddff;
+    /* Timeline track: holds the project items in a horizontal row */
+    .timeline-track {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      user-select: none;
+      will-change: transform;
     }
-    .future ul li a {
-      background: rgba(0, 0, 255, 0.7);
+    /* Timeline items with increased spacing */
+    .timeline-item {
+      flex: 0 0 auto;
+      width: 200px;
+      margin: 0 400px;
+      text-align: center;
     }
-    /* Updated the pseudo-element to have a solid black background */
-    .future::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      z-index: 1;
-    }
-    .future * {
-      position: relative;
-      z-index: 2;
-    }
-    /* Updated alien styles using nth-of-type for better targeting */
-    .future svg.alien {
-      position: absolute;
-      left: 100%;
-      animation: moveAlien linear infinite;
-    }
-    /* Original (current) aliens */
-    .future svg.alien:nth-of-type(1) { top: 0%; animation-duration: 10s; }
-    .future svg.alien:nth-of-type(2) { top: 20%; animation-duration: 12s; }
-    .future svg.alien:nth-of-type(3) { top: 40%; animation-duration: 14s; }
-    .future svg.alien:nth-of-type(4) { top: 60%; animation-duration: 16s; }
-    .future svg.alien:nth-of-type(5) { top: 80%; animation-duration: 18s; }
-    .future svg.alien:nth-of-type(6) { top: 100%; animation-duration: 20s; }
-    /* Added new aliens */
-    .future svg.alien:nth-of-type(7)  { top: 10%;  animation-duration: 11s; }
-    .future svg.alien:nth-of-type(8)  { top: 30%;  animation-duration: 13s; }
-    .future svg.alien:nth-of-type(9)  { top: 50%;  animation-duration: 15s; }
-    .future svg.alien:nth-of-type(10) { top: 70%;  animation-duration: 17s; }
-    .future svg.alien:nth-of-type(11) { top: 90%;  animation-duration: 19s; }
-    .future svg.alien:nth-of-type(12) { top: 110%; animation-duration: 21s; }
-    .way-future {
-  background: #0a0a0a; /* Dark base */
-  color: #fff;
-  font-family: 'Orbitron', sans-serif;
-  position: relative;
-  overflow: hidden;
-}
-.way-future h2 {
-  color: #ffddff;
-}
-.way-future ul li a {
-  background: rgba(255, 0, 255, 0.7);
-}
-.way-future::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* More dynamic, multi-color neon gradient overlay */
-  background: linear-gradient(135deg, #ff0080, #00ffcc, #ffff00, #00ff00, #ff0080);
-  background-size: 300% 300%;
-  animation: neonPulse 2s ease-in-out infinite;
-  z-index: 1;
-}
-.way-future * {
-  position: relative;
-  z-index: 2;
-}
-.way-future .finger-paint {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  height: 90%;
-  /* Over the top pulsing neon radial glow */
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-  animation: pulseGlow 1.5s ease-in-out infinite;
-  z-index: 2;
-  pointer-events: none; /* This line allows clicks to pass through to the link */
-}
-@keyframes neonPulse {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-@keyframes pulseGlow {
-  0% { opacity: 0.7; }
-  50% { opacity: 1; }
-  100% { opacity: 0.7; }
-}
-
-    @keyframes moveAlien {
-      0% {
-        left: 100%;
-      }
-      100% {
-        left: -10%;
-      }
-    }
-    @keyframes wayFutureAnim {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
-    .credits {
+    .timeline-item button {
       width: 100%;
       padding: 10px;
-      background: #222;
-      color: #ccc;
+      border: none;
+      border-radius: 5px;
+      background: rgba(68, 68, 68, 0.8);
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .timeline-item button:hover {
+      background: rgba(102, 102, 102, 0.8);
+      transform: scale(1.1);
+    }
+    .credits {
       text-align: center;
       font-size: 0.9em;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+      background: #222;
+      padding: 10px;
+      width: 100%;
     }
   </style>
 </head>
 <body>
-<div class="container">
-  <h1>Combined Games</h1>
-  <div class="era past">
-    <h2>Past</h2>
-    <ul>
-      <li><a href="KnightDragongGame/index.html">The Knight and the Dragon</a></li>
-    </ul>
+  <h1>Combined Games and Demos</h1>
+  <p class="instruction">timetravel below</p>
+  <iframe id="demoFrame" class="iframe-container" src=""></iframe>
+  <div id="timelineContainer" class="timeline-container">
+    <div id="timelineTrack" class="timeline-track">
+      <!-- First copy of timeline items -->
+      <div class="timeline-item">
+        <button onclick="loadDemo('KnightDragongGame/index.html')">Past: Knight &amp; Dragon</button>
+      </div>
+      <div class="timeline-item">
+        <button onclick="loadDemo('DingingHallGame/index.html')">Present: Dining Hall</button>
+      </div>
+      <div class="timeline-item">
+        <button onclick="loadDemo('alienTextGen/index.html')">Future: Alien Text</button>
+      </div>
+      <div class="timeline-item">
+        <button onclick="loadDemo('FingerPainter/index.html')">Way Future: Finger Painter</button>
+      </div>
+      <!-- Duplicate copy for seamless infinite scrolling -->
+      <div class="timeline-item">
+        <button onclick="loadDemo('KnightDragongGame/index.html')">Past: Knight &amp; Dragon</button>
+      </div>
+      <div class="timeline-item">
+        <button onclick="loadDemo('DingingHallGame/index.html')">Present: Dining Hall</button>
+      </div>
+      <div class="timeline-item">
+        <button onclick="loadDemo('alienTextGen/index.html')">Future: Alien Text</button>
+      </div>
+      <div class="timeline-item">
+        <button onclick="loadDemo('FingerPainter/index.html')">Way Future: Finger Painter</button>
+      </div>
+    </div>
   </div>
-  <div class="era present">
-    <h2>Present</h2>
-    <ul>
-      <li><a href="DingingHallGame/index.html">Dining Hall Game</a></li>
-    </ul>
+  <div class="credits">
+    Inform 7 code written with generative assists from ChatGPT 3.5. Tracery generator code assisted with text nodes scraped from science fiction using Python code written by ChatGPT 3.5. SVG generated with ChatGPT 4.0. Dining hall JPG generated with ChatGPT 4.0. ml5 finger tracking written by ChatGPT 3.5.
   </div>
-  <div class="era future">
-    <h2>Future</h2>
-    <ul>
-      <li><a href="alienTextGen/index.html">Alien Text Generator</a></li>
-    </ul>
-    <!-- Existing aliens (6) -->
-    <svg id="alien-template" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50" class="alien">
-      <circle cx="50" cy="50" r="30" fill="#00ff00" />
-      <circle cx="40" cy="40" r="5" fill="#000" />
-      <circle cx="60" cy="40" r="5" fill="#000" />
-      <circle cx="50" cy="30" r="4" fill="#000" />
-      <path d="M35,60 Q50,70 65,60" stroke="#000" stroke-width="2" fill="none" />
-      <line x1="50" y1="80" x2="30" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="70" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="50" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="40" y1="80" x2="20" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="60" y1="80" x2="80" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="10" y2="90" stroke="#00ff00" stroke-width="3" />
-      <line x1="50" y1="80" x2="90" y2="90" stroke="#00ff00" stroke-width="3" />
-      <line x1="45" y1="65" x2="47" y2="75" stroke="#000" stroke-width="2" />
-      <line x1="55" y1="65" x2="53" y2="75" stroke="#000" stroke-width="2" />
-    </svg>
-    <svg id="alien-template" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50" class="alien">
-      <circle cx="50" cy="50" r="30" fill="#00ff00" />
-      <circle cx="40" cy="40" r="5" fill="#000" />
-      <circle cx="60" cy="40" r="5" fill="#000" />
-      <circle cx="50" cy="30" r="4" fill="#000" />
-      <path d="M35,60 Q50,70 65,60" stroke="#000" stroke-width="2" fill="none" />
-      <line x1="50" y1="80" x2="30" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="70" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="50" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="40" y1="80" x2="20" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="60" y1="80" x2="80" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="10" y2="90" stroke="#00ff00" stroke-width="3" />
-      <line x1="50" y1="80" x2="90" y2="90" stroke="#00ff00" stroke-width="3" />
-      <line x1="45" y1="65" x2="47" y2="75" stroke="#000" stroke-width="2" />
-      <line x1="55" y1="65" x2="53" y2="75" stroke="#000" stroke-width="2" />
-    </svg>
-    <svg id="alien-template" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50" class="alien">
-      <circle cx="50" cy="50" r="30" fill="#00ff00" />
-      <circle cx="40" cy="40" r="5" fill="#000" />
-      <circle cx="60" cy="40" r="5" fill="#000" />
-      <circle cx="50" cy="30" r="4" fill="#000" />
-      <path d="M35,60 Q50,70 65,60" stroke="#000" stroke-width="2" fill="none" />
-      <line x1="50" y1="80" x2="30" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="70" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="50" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="40" y1="80" x2="20" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="60" y1="80" x2="80" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="10" y2="90" stroke="#00ff00" stroke-width="3" />
-      <line x1="50" y1="80" x2="90" y2="90" stroke="#00ff00" stroke-width="3" />
-      <line x1="45" y1="65" x2="47" y2="75" stroke="#000" stroke-width="2" />
-      <line x1="55" y1="65" x2="53" y2="75" stroke="#000" stroke-width="2" />
-    </svg>
-    <svg id="alien-template" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50" class="alien">
-      <circle cx="50" cy="50" r="30" fill="#00ff00" />
-      <circle cx="40" cy="40" r="5" fill="#000" />
-      <circle cx="60" cy="40" r="5" fill="#000" />
-      <circle cx="50" cy="30" r="4" fill="#000" />
-      <path d="M35,60 Q50,70 65,60" stroke="#000" stroke-width="2" fill="none" />
-      <line x1="50" y1="80" x2="30" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="70" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="50" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="40" y1="80" x2="20" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="60" y1="80" x2="80" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="10" y2="90" stroke="#00ff00" stroke-width="3" />
-      <line x1="50" y1="80" x2="90" y2="90" stroke="#00ff00" stroke-width="3" />
-      <line x1="45" y1="65" x2="47" y2="75" stroke="#000" stroke-width="2" />
-      <line x1="55" y1="65" x2="53" y2="75" stroke="#000" stroke-width="2" />
-    </svg>
-    <svg id="alien-template" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50" class="alien">
-      <circle cx="50" cy="50" r="30" fill="#00ff00" />
-      <circle cx="40" cy="40" r="5" fill="#000" />
-      <circle cx="60" cy="40" r="5" fill="#000" />
-      <circle cx="50" cy="30" r="4" fill="#000" />
-      <path d="M35,60 Q50,70 65,60" stroke="#000" stroke-width="2" fill="none" />
-      <line x1="50" y1="80" x2="30" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="70" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="50" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="40" y1="80" x2="20" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="60" y1="80" x2="80" y2="100" stroke="#00ff00" stroke-width="5" />
-      <line x1="50" y1="80" x2="10" y2="90" stroke="#00ff00" stroke-width="3" />
-      <line x1="50" y1="80" x2="90" y2="90" stroke="#00ff00" stroke-width="3" />
-      <line x1="45" y1="65" x2="47" y2="75" stroke="#000" stroke-width="2" />
-      <line x1="55" y1="65" x2="53" y2="75" stroke="#000" stroke-width="2" />
-    </svg>
-  </div>
-  <div class="era way-future">
-    <h2>Way Way Future</h2>
-    <ul>
-      <li><a href="FingerPainter/index.html">Finger Painter</a></li>
-    </ul>
-    <div class="finger-paint"></div>
-  </div>
-</div>
-<div class="credits">
-  Inform 7 code written with generative assists from ChatGPT 3.5. Tracery generator code assisted with text nodes scraped from science fiction using Python code written by ChatGPT 3.5. SVG generated with ChatGPT 4.0. Dining hall JPG generated with ChatGPT 4.0. ml5 finger tracking written by ChatGPT 3.5.
-</div>
+  <script>
+    function loadDemo(url) {
+      document.getElementById('demoFrame').src = url;
+    }
+
+    const timelineContainer = document.getElementById('timelineContainer');
+    const timelineTrack = document.getElementById('timelineTrack');
+    let isDragging = false;
+    let startX = 0;
+    let currentOffset = 0;
+    // Calculate the width of one copy of the timeline items
+    let trackCopyWidth = timelineTrack.scrollWidth / 2; 
+
+    // Set up the dynamic background gradient.
+    // Colors: Past (#8B4513 - brown), Present (#FFD700 - gold), Future (#00ff00 - neon green), Way Future (#FF1493 - neon pink), back to Past.
+    timelineContainer.style.background = "linear-gradient(to right, #8B4513, #FFD700, #00ff00, #FF1493, #8B4513)";
+    timelineContainer.style.backgroundSize = trackCopyWidth + "px 100%";
+    timelineContainer.style.backgroundRepeat = "repeat-x";
+    timelineContainer.style.backgroundPosition = currentOffset + "px 0";
+
+    timelineContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      timelineContainer.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      let deltaX = e.clientX - startX;
+      let newOffset = currentOffset + deltaX;
+      // Wrap around logic for infinite scrolling:
+      if (newOffset < -trackCopyWidth) {
+        newOffset += trackCopyWidth;
+        startX = e.clientX;
+        currentOffset = newOffset;
+      } else if (newOffset > 0) {
+        newOffset -= trackCopyWidth;
+        startX = e.clientX;
+        currentOffset = newOffset;
+      }
+      timelineTrack.style.transform = 'translateX(' + newOffset + 'px)';
+      timelineContainer.style.backgroundPosition = newOffset + "px 0";
+    });
+
+    window.addEventListener('mouseup', (e) => {
+      if (!isDragging) return;
+      let deltaX = e.clientX - startX;
+      currentOffset += deltaX;
+      // Normalize offset to remain within one cycle:
+      if (currentOffset < -trackCopyWidth) {
+        currentOffset += trackCopyWidth;
+      } else if (currentOffset > 0) {
+        currentOffset -= trackCopyWidth;
+      }
+      timelineTrack.style.transform = 'translateX(' + currentOffset + 'px)';
+      timelineContainer.style.backgroundPosition = currentOffset + "px 0";
+      isDragging = false;
+      timelineContainer.style.cursor = 'grab';
+    });
+
+    // Touch events for mobile devices
+    timelineContainer.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+    });
+    timelineContainer.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      let deltaX = e.touches[0].clientX - startX;
+      let newOffset = currentOffset + deltaX;
+      if (newOffset < -trackCopyWidth) {
+        newOffset += trackCopyWidth;
+        startX = e.touches[0].clientX;
+        currentOffset = newOffset;
+      } else if (newOffset > 0) {
+        newOffset -= trackCopyWidth;
+        startX = e.touches[0].clientX;
+        currentOffset = newOffset;
+      }
+      timelineTrack.style.transform = 'translateX(' + newOffset + 'px)';
+      timelineContainer.style.backgroundPosition = newOffset + "px 0";
+    });
+    timelineContainer.addEventListener('touchend', (e) => {
+      isDragging = false;
+    });
+  </script>
 </body>
 </html>
